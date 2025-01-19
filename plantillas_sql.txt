@@ -1,0 +1,179 @@
+plantillas_sql = {
+    # ----- CONSULTAS SIMPLES -----
+    'region': "SELECT * FROM expedientes WHERE country_subentity_name = '{region}';",
+    'entidad': "SELECT * FROM entidades WHERE name = '{entidad}';",
+    'tipo': "SELECT * FROM expedientes WHERE procurement_project_type_code = '{tipo}';",
+    'estado': "SELECT * FROM expedientes WHERE contract_folder_status_code = '{estado}';",
+    'cuantía_inferior': "SELECT * FROM expedientes WHERE total_amount < '{cuantia_max}';",
+    'cuantía_superior': "SELECT * FROM expedientes WHERE total_amount > '{cuantia_min}';",
+    # ----- CONSULTAS COMBINADAS -----
+    # Combinaciones con 'region'
+    'region_tipo': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND procurement_project_type_code = '{tipo}';"
+    ),
+    'region_estado': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND contract_folder_status_code = '{estado}';"
+    ),
+    'region_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'region_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    'region_tipo_estado': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND contract_folder_status_code = '{estado}';"
+    ),
+    'region_tipo_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'region_tipo_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    'region_estado_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'region_estado_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    'region_tipo_estado_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'region_tipo_estado_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{region}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    # Combinaciones con 'entidad'
+    'entidad_tipo': (
+        "SELECT * FROM expedientes "
+        "WHERE entity_name = '{entidad}' "
+        "AND procurement_project_type_code = '{tipo}';"
+    ),
+    'entidad_estado': (
+        "SELECT * FROM expedientes "
+        "WHERE entity_name = '{entidad}' "
+        "AND contract_folder_status_code = '{estado}';"
+    ),
+    'entidad_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE entity_name = '{entidad}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'entidad_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE entity_name = '{entidad}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    'entidad_tipo_estado': (
+        "SELECT * FROM expedientes "
+        "WHERE entity_name = '{entidad}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND contract_folder_status_code = '{estado}';"
+    ),
+    'entidad_tipo_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE entity_name = '{entidad}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'entidad_tipo_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE entity_name = '{entidad}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    'entidad_estado_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{entidad}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'entidad_estado_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE country_subentity_name = '{entidad}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    'entidad_tipo_estado_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE entity_name = '{entidad}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'entidad_tipo_estado_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE entity_name = '{entidad}' "
+        "AND procurement_project_type_code = '{tipo}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    # Combinaciones con 'tipo'
+    'tipo_estado': (
+        "SELECT * FROM expedientes "
+        "WHERE tipo = '{tipo}' "
+        "AND estado = '{estado}';"
+    ),
+    'tipo_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE procurement_project_type_code = '{tipo}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'tipo_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE procurement_project_type_code = '{tipo}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    'tipo_estado_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "WHERE procurement_project_type_code = '{tipo}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'tipo_estado_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "WHERE procurement_project_type_code = '{tipo}' "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount > '{cuantia_min}';"
+    ),
+    # Combinaciones con 'estado'
+     'estado_cuantia_inferior': (
+        "SELECT * FROM expedientes "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount < '{cuantia_max}';"
+    ),
+    'estado_cuantia_superior': (
+        "SELECT * FROM expedientes "
+        "AND contract_folder_status_code = '{estado}' "
+        "AND total_amount > '{cuantia_min}';"
+    )  
+}
