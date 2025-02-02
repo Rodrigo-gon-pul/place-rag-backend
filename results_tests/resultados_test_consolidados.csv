@@ -1,0 +1,1070 @@
+,Unnamed: 0,Pregunta,Consulta,Tabla,Valores,Categoría,Consulta Generada,Modelo,Validas,Exacta,Semántica,Jaccard,Overlap
+0,210,Solicito información de expedientes en Cuenca.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Cuenca';,expedientes,{'region': 'Cuenca'},region,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND party_subentity_code = 'AT' ;,Deepseek Coder 1.3B base,"[0, ""no existe la columna «party_subentity_code»\nLINE 1: ...ROM expedientes WHERE party_nif = 'S4133001J' AND party_sube...\n                                                             ^\n""]",False,False,Query inválida,Query inválida
+1,211,"Muestra los expedientes de Concesión de Servicios en Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara, con estado Publicado, y un coste inferior a 597000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount < 597000;",expedientes,"{'tipo': 'Concesión de Servicios', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara', 'estado': 'Publicado', 'cuantia': 597000}",entidad_tipo_estado_cuantia_inferior,SELECT * FROM expedientes WHERE contract_folder_status = 'Publicado' AND estimated_overall_contract_amount < 597000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+2,212,"Solicito información de expedientes en Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A cuyo coste exceda 306000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A' AND expedientes.total_amount > 306000;",expedientes,"{'entidad': 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A', 'cuantia': 306000}",entidad_cuantia_superior,SELECT * FROM expedientes WHERE contract_folder_id LIKE 'CON%' AND total_amount > 306000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+3,213,"Muestra los expedientes de Obras en Televisión Pública de Canarias, S.A. cuyo estado sea En evaluación.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Televisión Pública de Canarias, S.A.' AND expedientes.procurement_project_type_code = 'Obras' AND expedientes.contract_folder_status = 'En evaluación';",expedientes,"{'tipo': 'Obras', 'entidad': 'Televisión Pública de Canarias, S.A.', 'estado': 'En evaluación'}",entidad_tipo_estado,SELECT * FROM expedientes WHERE contract_folder_status = 'En evaluación' AND party_nif = 'S4133001J';,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+4,214,Muestra los expedientes de Gestión de Servicios Públicos en Departamento de Salud Alcoy. Dirección Económica-Gerencia que se sitúen por debajo de 597000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Departamento de Salud Alcoy. Dirección Económica-Gerencia' AND expedientes.procurement_project_type_code = 'Gestión de Servicios Públicos' AND expedientes.total_amount < 597000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'entidad': 'Departamento de Salud Alcoy. Dirección Económica-Gerencia', 'cuantia': 597000}",entidad_tipo_cuantia_inferior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND total_amount < 597000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+5,215,Muestra los expedientes de Privado en Dirección del Centro Penitenciario de Soria que se sitúen por encima de 167000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección del Centro Penitenciario de Soria' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.total_amount > 167000;,expedientes,"{'tipo': 'Privado', 'entidad': 'Dirección del Centro Penitenciario de Soria', 'cuantia': 167000}",entidad_tipo_cuantia_superior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND total_amount > 167000;,Deepseek Coder 1.3B base,Query válida,False,False,0,0
+6,216,"Muestra los expedientes de Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona, Resuelto, con un presupuesto inferior a 918000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 918000;",expedientes,"{'entidad': 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona', 'estado': 'Resuelto', 'cuantia': 918000}",entidad_estado_cuantia_inferior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND estimated_overall_contract_amount < 918000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0.0
+7,217,"Muestra los expedientes de Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS), Anuncio Previo, con un presupuesto superior a 992000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount > 992000;,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Anuncio Previo', 'cuantia': 992000}",entidad_estado_cuantia_superior,SELECT * FROM expedientes WHERE contract_folder_id LIKE '2023/20' AND estimated_overall_contract_amount > 992000;,Deepseek Coder 1.3B base,Query válida,False,False,0,0
+8,218,"Muestra los expedientes de Patrimonial en Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia, con estado Publicado, y un coste superior a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount > 708000;,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia', 'estado': 'Publicado', 'cuantia': 708000}",entidad_tipo_estado_cuantia_superior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND contract_folder_status = 'Publicado' AND total_amount > 708000;,Deepseek Coder 1.3B base,Query válida,False,False,0,0
+9,219,Muestra los expedientes registrados en Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS) con estado Resuelto.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Resuelto';,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Resuelto'}",entidad_estado,SELECT * FROM expedientes WHERE contract_folder_status = 'Resuelto' AND contract_folder_id LIKE '2023/20' ;,Deepseek Coder 1.3B base,Query válida,False,False,0,0
+10,220,Muestra los expedientes de Obras registrados con estado Resuelto.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Obras' AND contract_folder_status = 'Resuelto';,expedientes,"{'tipo': 'Obras', 'estado': 'Resuelto'}",tipo_estado,SELECT * FROM expedientes WHERE contract_folder_status = 'Resuelto' ;,Deepseek Coder 1.3B base,Query válida,False,False,0.2222222222222222,1.0
+11,221,Muestra los expedientes de Gestión de Servicios Públicos registrados con un importe menor a 359000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Gestión de Servicios Públicos' AND total_amount < 359000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'cuantia': 359000}",tipo_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount < 359000;,Deepseek Coder 1.3B base,Query válida,False,False,0.00425531914893617,1.0
+12,222,Muestra los expedientes de Suministros registrados con un importe mayor a 864000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Suministros' AND total_amount > 864000;,expedientes,"{'tipo': 'Suministros', 'cuantia': 864000}",tipo_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 864000;,Deepseek Coder 1.3B base,Query válida,False,False,0.13157894736842105,1.0
+13,223,"Muestra los expedientes de Concesión de Servicios, Publicado, cuyo importe sea menor a 194000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Concesión de Servicios' AND contract_folder_status = 'Publicado' AND total_amount < 194000;,expedientes,"{'tipo': 'Concesión de Servicios', 'estado': 'Publicado', 'cuantia': 194000}",tipo_estado_cuantia_inferior,SELECT * FROM expedientes WHERE contract_folder_status = 'Publicado' AND total_amount < 194000;,Deepseek Coder 1.3B base,Query válida,False,False,0.02127659574468085,1.0
+14,224,"Muestra los expedientes de Servicios, Adjudicado, cuyo importe sea superior a 558000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios' AND contract_folder_status = 'Adjudicado' AND total_amount > 558000;,expedientes,"{'tipo': 'Servicios', 'estado': 'Adjudicado', 'cuantia': 558000}",tipo_estado_cuantia_superior,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios' AND contract_folder_status = 'Adjudicado' AND total_amount > 558000;,Deepseek Coder 1.3B base,Query válida,True,True,1.0,1.0
+15,225,Muestra los expedientes Adjudicado cuyo importe sea menor a 459000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount < 459000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 459000}",estado_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount < 459000;,Deepseek Coder 1.3B base,Query válida,False,False,0.24081632653061225,1.0
+16,226,Solicito información de expedientes en Rectorado de la Universidad de Granada cuyo coste no supere 72000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Rectorado de la Universidad de Granada' AND expedientes.total_amount < 72000;,expedientes,"{'entidad': 'Rectorado de la Universidad de Granada', 'cuantia': 72000}",entidad_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount < 72000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+17,227,Muestra los expedientes de Patrimonial registrados en Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo' AND expedientes.procurement_project_type_code = 'Patrimonial';,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo'}",entidad_tipo,SELECT * FROM expedientes WHERE party_nif = 'P2801300A';,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+18,228,Solicito información de expedientes en Alcaldía del Ayuntamiento de Zamora.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Alcaldía del Ayuntamiento de Zamora';,expedientes,{'entidad': 'Alcaldía del Ayuntamiento de Zamora'},entidad,,Deepseek Coder 1.3B base,"[18, ""can't execute an empty query""]",False,False,Query inválida,Query inválida
+19,229,Solicito información de expedientes en Navarra que no superen 730000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Navarra' AND expedientes.total_amount < 730000;,expedientes,"{'region': 'Navarra', 'cuantia': 730000}",region_cuantia_inferior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND total_amount > 730000;,Deepseek Coder 1.3B base,Query válida,False,False,0,0
+20,230,Solicito información de contratos de Servicios.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios';,expedientes,{'tipo': 'Servicios'},tipo,,Deepseek Coder 1.3B base,"[20, ""can't execute an empty query""]",False,False,Query inválida,Query inválida
+21,231,Solicito información de contratos Anuncio Previo.,SELECT * FROM expedientes WHERE contract_folder_status = 'Anuncio Previo';,expedientes,{'estado': 'Anuncio Previo'},estado,,Deepseek Coder 1.3B base,"[21, ""can't execute an empty query""]",False,False,Query inválida,Query inválida
+22,232,Muestra los expedientes registrados que no superan 306000€.,SELECT * FROM expedientes WHERE total_amount < 306000;,expedientes,{'cuantia': 306000},cuantia_inferior,SELECT * FROM expedientes WHERE total_amount > 306000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0.0
+23,233,Muestra los expedientes registrados que exceden 520000€.,SELECT * FROM expedientes WHERE total_amount > 520000;,expedientes,{'cuantia': 520000},cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 520000;,Deepseek Coder 1.3B base,Query válida,True,True,1.0,1.0
+24,234,Solicito información de expedientes de Servicios en Guadalajara.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Guadalajara' AND expedientes.procurement_project_type_code = 'Servicios';,expedientes,"{'tipo': 'Servicios', 'region': 'Guadalajara'}",region_tipo,SELECT * FROM expedientes WHERE party_nif = 'S4133001J';,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0.0
+25,235,Solicito información de expedientes Anuncio Previo en Este.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Este' AND expedientes.contract_folder_status = 'Anuncio Previo';,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Este'}",region_estado,SELECT * FROM expedientes WHERE party_nif = 'S4133001J';,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+26,236,Solicito información de expedientes en Canarias que excedan 520000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Canarias' AND expedientes.total_amount > 520000;,expedientes,"{'region': 'Canarias', 'cuantia': 520000}",region_cuantia_superior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND total_amount > 520000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+27,237,"Muestra los expedientes de Privado en Asturias, con estado Adjudicado, y cuantía mayor a 560000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Asturias' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 560000;,expedientes,"{'tipo': 'Privado', 'region': 'Asturias', 'estado': 'Adjudicado', 'cuantia': 560000}",region_tipo_estado_cuantia_superior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND contract_folder_status = 'Adjudicado' AND total_amount > 560000;,Deepseek Coder 1.3B base,Query válida,False,False,0,0
+28,238,Muestra los expedientes de Servicios en Huesca que tengan estado En evaluación.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Huesca' AND expedientes.procurement_project_type_code = 'Servicios' AND expedientes.contract_folder_status = 'En evaluación';,expedientes,"{'tipo': 'Servicios', 'region': 'Huesca', 'estado': 'En evaluación'}",region_tipo_estado,SELECT * FROM expedientes WHERE contract_folder_status = 'En evaluación' AND title LIKE '%Servicios en Huesca%';,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+29,239,Muestra los expedientes de Patrimonial en El Hierro con cuantía menor a 146000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'El Hierro' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.total_amount < 146000;,expedientes,"{'tipo': 'Patrimonial', 'region': 'El Hierro', 'cuantia': 146000}",region_tipo_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount < 146000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+30,240,Muestra los expedientes de Suministros en Centro (ES) con cuantía mayor a 315000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Centro (ES)' AND expedientes.procurement_project_type_code = 'Suministros' AND expedientes.total_amount > 315000;,expedientes,"{'tipo': 'Suministros', 'region': 'Centro (ES)', 'cuantia': 315000}",region_tipo_cuantia_superior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND total_amount > 315000;,Deepseek Coder 1.3B base,Query válida,False,False,0,0
+31,241,Muestra los expedientes Anuncio Previo de Soria con cuantía menor a 566000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Soria' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount < 566000;,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Soria', 'cuantia': 566000}",region_estado_cuantia_inferior,SELECT * FROM expedientes WHERE estimated_overall_contract_amount < 566000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+32,242,Muestra los expedientes Adjudicado de Girona con cuantía mayor a 194000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Girona' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 194000;,expedientes,"{'estado': 'Adjudicado', 'region': 'Girona', 'cuantia': 194000}",region_estado_cuantia_superior,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND estimated_overall_contract_amount > 194000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+33,243,"Muestra los expedientes de Concesión de Servicios en Castilla-La Mancha, con estado Resuelto, y cuantía menor a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Castilla-La Mancha' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 708000;,expedientes,"{'tipo': 'Concesión de Servicios', 'region': 'Castilla-La Mancha', 'estado': 'Resuelto', 'cuantia': 708000}",region_tipo_estado_cuantia_inferior,SELECT * FROM expedientes WHERE contract_folder_status = 'Resuelto' AND total_amount < 708000;,Deepseek Coder 1.3B base,Query válida,False,False,0.0,0
+34,244,Muestra los expedientes Adjudicado cuyo importe sea mayor a 818000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount > 818000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 818000}",estado_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 818000;,Deepseek Coder 1.3B base,Query válida,False,False,0.1794871794871795,1.0
+35,210,Solicito información de expedientes en Cuenca.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Cuenca';,expedientes,{'region': 'Cuenca'},region,SELECT * FROM expedientes WHERE party_nif = 'S4133001J';,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0.0
+36,211,"Muestra los expedientes de Concesión de Servicios en Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara, con estado Publicado, y un coste inferior a 597000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount < 597000;",expedientes,"{'tipo': 'Concesión de Servicios', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara', 'estado': 'Publicado', 'cuantia': 597000}",entidad_tipo_estado_cuantia_inferior,SELECT * FROM expedientes WHERE budget_currency = 'EUR' AND total_amount < 597000 AND contract_folder_status = 'En evaluación' AND procurement_project_subtype_name = 'Suministros' AND party_nif = 'S4133001J';,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0,0
+37,212,"Solicito información de expedientes en Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A cuyo coste exceda 306000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A' AND expedientes.total_amount > 306000;",expedientes,"{'entidad': 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A', 'cuantia': 306000}",entidad_cuantia_superior,SELECT * FROM expedientes WHERE party_nif = 'Q2802152E' ;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0
+38,213,"Muestra los expedientes de Obras en Televisión Pública de Canarias, S.A. cuyo estado sea En evaluación.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Televisión Pública de Canarias, S.A.' AND expedientes.procurement_project_type_code = 'Obras' AND expedientes.contract_folder_status = 'En evaluación';",expedientes,"{'tipo': 'Obras', 'entidad': 'Televisión Pública de Canarias, S.A.', 'estado': 'En evaluación'}",entidad_tipo_estado,SELECT * FROM expedientes WHERE procurement_project_subtype_name = 'Obras en Televisión P�blica de Canarias' AND contract_folder_status = 'En evaluación' ;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0,0
+39,214,Muestra los expedientes de Gestión de Servicios Públicos en Departamento de Salud Alcoy. Dirección Económica-Gerencia que se sitúen por debajo de 597000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Departamento de Salud Alcoy. Dirección Económica-Gerencia' AND expedientes.procurement_project_type_code = 'Gestión de Servicios Públicos' AND expedientes.total_amount < 597000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'entidad': 'Departamento de Salud Alcoy. Dirección Económica-Gerencia', 'cuantia': 597000}",entidad_tipo_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount < 597000 AND party_nif NOT IN (SELECT nif FROM entidades WHERE website_uri LIKE 'http://www.agenciasdecalidad.es%') AND contract_folder_status = 'En evaluación' AND procurement_project_subtype_name = 'Suministros' AND country_subentity_code = 'AT1' ;,Deepseek Coder 1.3B fine-tuned 1,"[4, ""no existe la columna «country_subentity_code»\nLINE 1: ...curement_project_subtype_name = 'Suministros' AND country_su...\n                                                             ^\n""]",False,False,Query inválida,Query inválida
+40,215,Muestra los expedientes de Privado en Dirección del Centro Penitenciario de Soria que se sitúen por encima de 167000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección del Centro Penitenciario de Soria' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.total_amount > 167000;,expedientes,"{'tipo': 'Privado', 'entidad': 'Dirección del Centro Penitenciario de Soria', 'cuantia': 167000}",entidad_tipo_cuantia_superior,"SELECT * FROM expedientes WHERE total_amount > 167000 AND procurement_project_type_code = 'Suministros' AND procurement_project_subtype_name = 'None' AND contract_folder_status = 'En evaluación' AND country_subentity_code = 'AT' ORDER BY 4, 5, 6;",Deepseek Coder 1.3B fine-tuned 1,"[5, ""no existe la columna «country_subentity_code»\nLINE 1: ... AND contract_folder_status = 'En evaluación' AND country_su...\n                                                             ^\n""]",False,False,Query inválida,Query inválida
+41,216,"Muestra los expedientes de Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona, Resuelto, con un presupuesto inferior a 918000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 918000;",expedientes,"{'entidad': 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona', 'estado': 'Resuelto', 'cuantia': 918000}",entidad_estado_cuantia_inferior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND budget_currency = 'EUR' AND estimated_overall_contract_amount < 918000;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0.0
+42,217,"Muestra los expedientes de Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS), Anuncio Previo, con un presupuesto superior a 992000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount > 992000;,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Anuncio Previo', 'cuantia': 992000}",entidad_estado_cuantia_superior,SELECT * FROM expedientes WHERE estimated_overall_contract_amount > 992000 AND contract_folder_status = 'En evaluación' AND procurement_project_subtype_name = 'Suministros' AND country_subentity_code = 'AT' ORDER BY estimated_overall_contract_amount DESC;,Deepseek Coder 1.3B fine-tuned 1,"[7, ""no existe la columna «country_subentity_code»\nLINE 1: ...curement_project_subtype_name = 'Suministros' AND country_su...\n                                                             ^\n""]",False,False,Query inválida,Query inválida
+43,218,"Muestra los expedientes de Patrimonial en Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia, con estado Publicado, y un coste superior a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount > 708000;,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia', 'estado': 'Publicado', 'cuantia': 708000}",entidad_tipo_estado_cuantia_superior,"SELECT * FROM expedientes WHERE budget_currency = 'EUR' AND total_amount > 708000 AND contract_folder_status = 'En evaluación' AND procurement_project_type_code = 'Suministros' AND procurement_project_subtype_name = 'Adquisición' AND country_subentity_code = '28300' ORDER BY 6 DESC, 7 DESC, 4 ASC, 1 ASC;",Deepseek Coder 1.3B fine-tuned 1,"[8, ""no existe la columna «country_subentity_code»\nLINE 1: ...curement_project_subtype_name = 'Adquisición' AND country_su...\n                                                             ^\n""]",False,False,Query inválida,Query inválida
+44,219,Muestra los expedientes registrados en Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS) con estado Resuelto.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Resuelto';,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Resuelto'}",entidad_estado,SELECT * FROM expedientes WHERE contract_folder_status = 'Resuelto' AND party_nif = 'S4133001J';,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0,0
+45,220,Muestra los expedientes de Obras registrados con estado Resuelto.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Obras' AND contract_folder_status = 'Resuelto';,expedientes,"{'tipo': 'Obras', 'estado': 'Resuelto'}",tipo_estado,SELECT * FROM expedientes WHERE contract_folder_status = 'Resuelto';,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.2222222222222222,1.0
+46,221,Muestra los expedientes de Gestión de Servicios Públicos registrados con un importe menor a 359000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Gestión de Servicios Públicos' AND total_amount < 359000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'cuantia': 359000}",tipo_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount < 359000;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.00425531914893617,1.0
+47,222,Muestra los expedientes de Suministros registrados con un importe mayor a 864000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Suministros' AND total_amount > 864000;,expedientes,"{'tipo': 'Suministros', 'cuantia': 864000}",tipo_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 864000;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.13157894736842105,1.0
+48,223,"Muestra los expedientes de Concesión de Servicios, Publicado, cuyo importe sea menor a 194000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Concesión de Servicios' AND contract_folder_status = 'Publicado' AND total_amount < 194000;,expedientes,"{'tipo': 'Concesión de Servicios', 'estado': 'Publicado', 'cuantia': 194000}",tipo_estado_cuantia_inferior,SELECT * FROM expedientes WHERE budget_currency = 'EUR' AND estimated_overall_contract_amount < 194000;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0.0
+49,224,"Muestra los expedientes de Servicios, Adjudicado, cuyo importe sea superior a 558000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios' AND contract_folder_status = 'Adjudicado' AND total_amount > 558000;,expedientes,"{'tipo': 'Servicios', 'estado': 'Adjudicado', 'cuantia': 558000}",tipo_estado_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 558000 AND contract_folder_status = 'Adjudicado';,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.5,1.0
+50,225,Muestra los expedientes Adjudicado cuyo importe sea menor a 459000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount < 459000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 459000}",estado_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount < 459000;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.24081632653061225,1.0
+51,226,Solicito información de expedientes en Rectorado de la Universidad de Granada cuyo coste no supere 72000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Rectorado de la Universidad de Granada' AND expedientes.total_amount < 72000;,expedientes,"{'entidad': 'Rectorado de la Universidad de Granada', 'cuantia': 72000}",entidad_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount > 72000 AND contract_folder_status = 'En evaluación' AND procurement_project_subtype_name = 'Suministros' AND country_subentity_code = 'AT' ORDER BY contract_folder_id;,Deepseek Coder 1.3B fine-tuned 1,"[16, ""no existe la columna «country_subentity_code»\nLINE 1: ...curement_project_subtype_name = 'Suministros' AND country_su...\n                                                             ^\n""]",False,False,Query inválida,Query inválida
+52,227,Muestra los expedientes de Patrimonial registrados en Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo' AND expedientes.procurement_project_type_code = 'Patrimonial';,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo'}",entidad_tipo,SELECT * FROM expedientes WHERE party_nif = 'P2801300A' ;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0
+53,228,Solicito información de expedientes en Alcaldía del Ayuntamiento de Zamora.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Alcaldía del Ayuntamiento de Zamora';,expedientes,{'entidad': 'Alcaldía del Ayuntamiento de Zamora'},entidad,SELECT * FROM expedientes WHERE party_nif = 'S4133001J';,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0.0
+54,229,Solicito información de expedientes en Navarra que no superen 730000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Navarra' AND expedientes.total_amount < 730000;,expedientes,"{'region': 'Navarra', 'cuantia': 730000}",region_cuantia_inferior,"SELECT * FROM expedientes WHERE total_amount > 730000 AND party_nif NOT IN (SELECT nif FROM entidades WHERE country_subentity_code = 'AT1' OR country_subentity_code = 'AT11')
+ Id licitación: https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B;",Deepseek Coder 1.3B fine-tuned 1,"[19, 'error de sintaxis en o cerca de «Id»\nLINE 2:  Id licitación: https://contrataciondelestado.es/wps/poc?uri...\n         ^\n']",False,False,Query inválida,Query inválida
+55,230,Solicito información de contratos de Servicios.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios';,expedientes,{'tipo': 'Servicios'},tipo,SELECT * FROM documentos;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0.0
+56,231,Solicito información de contratos Anuncio Previo.,SELECT * FROM expedientes WHERE contract_folder_status = 'Anuncio Previo';,expedientes,{'estado': 'Anuncio Previo'},estado,SELECT * FROM documentos;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,1.0,1.0
+57,232,Muestra los expedientes registrados que no superan 306000€.,SELECT * FROM expedientes WHERE total_amount < 306000;,expedientes,{'cuantia': 306000},cuantia_inferior,SELECT * FROM expedientes WHERE total_amount > 306000;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0.0
+58,233,Muestra los expedientes registrados que exceden 520000€.,SELECT * FROM expedientes WHERE total_amount > 520000;,expedientes,{'cuantia': 520000},cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 520000;,Deepseek Coder 1.3B fine-tuned 1,Query válida,True,True,0.0,0
+59,234,Solicito información de expedientes de Servicios en Guadalajara.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Guadalajara' AND expedientes.procurement_project_type_code = 'Servicios';,expedientes,"{'tipo': 'Servicios', 'region': 'Guadalajara'}",region_tipo,SELECT * FROM expedientes WHERE party_nif = 'S4133001J';,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0
+60,235,Solicito información de expedientes Anuncio Previo en Este.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Este' AND expedientes.contract_folder_status = 'Anuncio Previo';,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Este'}",region_estado,SELECT * FROM expedientes;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0,0
+61,236,Solicito información de expedientes en Canarias que excedan 520000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Canarias' AND expedientes.total_amount > 520000;,expedientes,"{'region': 'Canarias', 'cuantia': 520000}",region_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 520000 AND party_nif = 'S4133001J';,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.0,0
+62,237,"Muestra los expedientes de Privado en Asturias, con estado Adjudicado, y cuantía mayor a 560000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Asturias' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 560000;,expedientes,"{'tipo': 'Privado', 'region': 'Asturias', 'estado': 'Adjudicado', 'cuantia': 560000}",region_tipo_estado_cuantia_superior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND contract_folder_status = 'En evaluación' AND estimated_overall_contract_amount > 560000;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,Query inválida,Query inválida
+63,238,Muestra los expedientes de Servicios en Huesca que tengan estado En evaluación.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Huesca' AND expedientes.procurement_project_type_code = 'Servicios' AND expedientes.contract_folder_status = 'En evaluación';,expedientes,"{'tipo': 'Servicios', 'region': 'Huesca', 'estado': 'En evaluación'}",region_tipo_estado,SELECT * FROM expedientes WHERE procurement_project_subtype_name = 'Servicios' AND contract_folder_status = 'En evaluación';,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,Query inválida,Query inválida
+64,239,Muestra los expedientes de Patrimonial en El Hierro con cuantía menor a 146000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'El Hierro' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.total_amount < 146000;,expedientes,"{'tipo': 'Patrimonial', 'region': 'El Hierro', 'cuantia': 146000}",region_tipo_cuantia_inferior,"SELECT * FROM expedientes WHERE total_amount < 146000 AND procurement_project_subtype_name = 'Suministros' AND contract_folder_status = 'En evaluación' AND country_subentity_code = 'AT' ORDER BY country_subentity_name, procurement_project_subtype_name, contract_folder_id;",Deepseek Coder 1.3B fine-tuned 1,"[29, ""no existe la columna «country_subentity_code»\nLINE 1: ... AND contract_folder_status = 'En evaluación' AND country_su...\n                                                             ^\n""]",False,False,Query inválida,Query inválida
+65,240,Muestra los expedientes de Suministros en Centro (ES) con cuantía mayor a 315000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Centro (ES)' AND expedientes.procurement_project_type_code = 'Suministros' AND expedientes.total_amount > 315000;,expedientes,"{'tipo': 'Suministros', 'region': 'Centro (ES)', 'cuantia': 315000}",region_tipo_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 315000 AND party_subentity_code = 'ES3' ;,Deepseek Coder 1.3B fine-tuned 1,"[30, 'no existe la columna «party_subentity_code»\nLINE 1: ... FROM expedientes WHERE total_amount > 315000 AND party_sube...\n                                                             ^\n']",False,False,0.0,0
+66,241,Muestra los expedientes Anuncio Previo de Soria con cuantía menor a 566000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Soria' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount < 566000;,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Soria', 'cuantia': 566000}",region_estado_cuantia_inferior,SELECT * FROM expedientes WHERE estimated_overall_contract_amount < 566000 AND contract_folder_status = 'En evaluación' AND procurement_project_subtype_name = 'Suministros' AND country_subentity_code = 'AT' ORDER BY estimated_overall_contract_amount DESC;,Deepseek Coder 1.3B fine-tuned 1,"[31, ""no existe la columna «country_subentity_code»\nLINE 1: ...curement_project_subtype_name = 'Suministros' AND country_su...\n                                                             ^\n""]",False,False,0,0
+67,242,Muestra los expedientes Adjudicado de Girona con cuantía mayor a 194000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Girona' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 194000;,expedientes,"{'estado': 'Adjudicado', 'region': 'Girona', 'cuantia': 194000}",region_estado_cuantia_superior,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND estimated_overall_contract_amount > 194000 ORDER BY estimated_overall_contract_amount DESC;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,0.1794871794871795,1.0
+68,243,"Muestra los expedientes de Concesión de Servicios en Castilla-La Mancha, con estado Resuelto, y cuantía menor a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Castilla-La Mancha' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 708000;,expedientes,"{'tipo': 'Concesión de Servicios', 'region': 'Castilla-La Mancha', 'estado': 'Resuelto', 'cuantia': 708000}",region_tipo_estado_cuantia_inferior,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' AND contract_folder_status = 'Resuelto' AND estimated_overall_contract_amount < 708000 ORDER BY contract_folder_id;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,,
+69,244,Muestra los expedientes Adjudicado cuyo importe sea mayor a 818000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount > 818000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 818000}",estado_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 818000;,Deepseek Coder 1.3B fine-tuned 1,Query válida,False,False,,
+70,210,Solicito información de expedientes en Cuenca.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Cuenca';,expedientes,{'region': 'Cuenca'},region,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' ;,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0.0,0.0
+71,211,"Muestra los expedientes de Concesión de Servicios en Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara, con estado Publicado, y un coste inferior a 597000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount < 597000;",expedientes,"{'tipo': 'Concesión de Servicios', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara', 'estado': 'Publicado', 'cuantia': 597000}",entidad_tipo_estado_cuantia_inferior,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Muestra los expedientes de Concesión de Servicios en Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara, con estado Publicado, y un coste inferior a 597000€. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM contracciondeplataformas.expedientes e WHERE summary LIKE '%Concesión de Servicios%' AND contract_folder_status = 'En evaluación' AND procurement_project_type_code = 'Suministros' AND procurement_project_subtype_name = 'Adquisición' AND budget_currency = 'EUR' AND tax_exclusive_amount < 597000.00 AND summary LIKE '%coste%' AND summary LIKE '%prevención%' AND summary NOT LIKE '%síndrome%' AND summary NOT LIKE '%síntomas%' AND summary NOT LIKE '%fiebre%' AND summary NOT LIKE '%dolor%' AND summary NOT LIKE '%mal%' AND summary NOT LIKE '%garganta%' AND summary NOT LIKE '%pérdida%' AND summary NOT LIKE '%líquido%' AND summary NOT LIKE '%comprado%' AND summary NOT LIKE '%pintura%' AND summary NOT LIKE '%pintura%' AND summary NOT LIKE '%pintura%' AND summary NOT LIKE",Deepseek Coder 1.3B fine-tuned 2,"[1, 'error de sintaxis en o cerca de «Dada»\nLINE 2: Dada una pregunta de entrada, crea una consulta de postgresq...\n        ^\n']",False,False,Query inválida,Query inválida
+72,212,"Solicito información de expedientes en Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A cuyo coste exceda 306000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A' AND expedientes.total_amount > 306000;",expedientes,"{'entidad': 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A', 'cuantia': 306000}",entidad_cuantia_superior,SELECT * FROM expedientes WHERE summary LIKE '%306000%S%';,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0,0
+73,213,"Muestra los expedientes de Obras en Televisión Pública de Canarias, S.A. cuyo estado sea En evaluación.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Televisión Pública de Canarias, S.A.' AND expedientes.procurement_project_type_code = 'Obras' AND expedientes.contract_folder_status = 'En evaluación';",expedientes,"{'tipo': 'Obras', 'entidad': 'Televisión Pública de Canarias, S.A.', 'estado': 'En evaluación'}",entidad_tipo_estado,SELECT * FROM contracad.contratos.expedientes e WHERE e.contract_folder_status = 'En evaluación' AND e.party_nif = 'S4133001J' ;,Deepseek Coder 1.3B fine-tuned 2,"[3, 'no están implementadas las referencias entre bases de datos: «contracad.contratos.expedientes»\nLINE 1: SELECT * FROM contracad.contratos.expedientes e WHERE e.cont...\n                      ^\n']",False,False,Query inválida,Query inválida
+74,214,Muestra los expedientes de Gestión de Servicios Públicos en Departamento de Salud Alcoy. Dirección Económica-Gerencia que se sitúen por debajo de 597000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Departamento de Salud Alcoy. Dirección Económica-Gerencia' AND expedientes.procurement_project_type_code = 'Gestión de Servicios Públicos' AND expedientes.total_amount < 597000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'entidad': 'Departamento de Salud Alcoy. Dirección Económica-Gerencia', 'cuantia': 597000}",entidad_tipo_cuantia_inferior,SELECT * FROM contracad.expedientes e WHERE e.contract_folder_id LIKE '3%' AND e.budget_currency = 'EUR' AND e.total_amount < 597000;,Deepseek Coder 1.3B fine-tuned 2,"[4, 'no existe la relación «contracad.expedientes»\nLINE 1: SELECT * FROM contracad.expedientes e WHERE e.contract_folde...\n                      ^\n']",False,False,Query inválida,Query inválida
+75,215,Muestra los expedientes de Privado en Dirección del Centro Penitenciario de Soria que se sitúen por encima de 167000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección del Centro Penitenciario de Soria' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.total_amount > 167000;,expedientes,"{'tipo': 'Privado', 'entidad': 'Dirección del Centro Penitenciario de Soria', 'cuantia': 167000}",entidad_tipo_cuantia_superior,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Muestra los expedientes de Privado en Dirección del Centro Penitenciario de Soria que se sit�en por encima de 167000€. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM contracad.expedientes e WHERE e.total_amount > 167000 AND e.party_nif IN (SELECT p.nif FROM contracad.entidades p WHERE p.party_subentity_code = 'Soria')
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+16 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/doc",Deepseek Coder 1.3B fine-tuned 2,"[5, 'error de sintaxis en o cerca de «Dada»\nLINE 2: Dada una pregunta de entrada, crea una consulta de postgresq...\n        ^\n']",False,False,Query inválida,Query inválida
+76,216,"Muestra los expedientes de Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona, Resuelto, con un presupuesto inferior a 918000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 918000;",expedientes,"{'entidad': 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona', 'estado': 'Resuelto', 'cuantia': 918000}",entidad_estado_cuantia_inferior,"SELECT * FROM contracciondelestadotwb.expedientes e JOIN contracciondelestadotwb.entidades e2 ON e.party_nif = e2.nif WHERE e.summary LIKE '%Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona, Resuelto%' AND e.budget_currency = 'EUR' AND e.total_amount < 918000;",Deepseek Coder 1.3B fine-tuned 2,"[6, 'no existe la relación «contracciondelestadotwb.expedientes»\nLINE 1: SELECT * FROM contracciondelestadotwb.expedientes e JOIN con...\n                      ^\n']",False,False,Query inválida,Query inválida
+77,217,"Muestra los expedientes de Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS), Anuncio Previo, con un presupuesto superior a 992000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount > 992000;,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Anuncio Previo', 'cuantia': 992000}",entidad_estado_cuantia_superior,SELECT * FROM contracfolder.contratos WHERE summary LIKE '%Prevision del servicio ofrecido:%' AND procurement_project_subtype_name = 'Suministros' AND contract_folder_status = 'Adjudicado' AND total_amount > 992000 AND tax_exclusive_amount/total_amount < 0.2;,Deepseek Coder 1.3B fine-tuned 2,"[7, ""no existe la relación «contracfolder.contratos»\nLINE 1: SELECT * FROM contracfolder.contratos WHERE summary LIKE '%P...\n                      ^\n""]",False,False,Query inválida,Query inválida
+78,218,"Muestra los expedientes de Patrimonial en Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia, con estado Publicado, y un coste superior a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount > 708000;,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia', 'estado': 'Publicado', 'cuantia': 708000}",entidad_tipo_estado_cuantia_superior,SELECT * FROM contracad.expedientes e WHERE e.summary LIKE '%Patrimonial%' AND e.contract_folder_status = 'En evaluación' AND e.budget_currency = 'EUR' AND e.total_amount > 708000.00;,Deepseek Coder 1.3B fine-tuned 2,"[8, ""no existe la relación «contracad.expedientes»\nLINE 1: SELECT * FROM contracad.expedientes e WHERE e.summary LIKE '...\n                      ^\n""]",False,False,Query inválida,Query inválida
+79,219,Muestra los expedientes registrados en Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS) con estado Resuelto.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Resuelto';,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Resuelto'}",entidad_estado,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Muestra los expedientes registrados en Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS) con estado Resuelto. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM contracciondelestado.es.expedientes e JOIN contracciondelestado.es.entidades e2 ON (e.party_nif = e2.nif) WHERE e.contract_folder_status = 'Resuelto' AND e2.party_subentity_code = '28300' AND e2.party_postal_zone = '28020' AND SUBSTRING(e.title, 1, 3) = 'Sumin' 
+ 
+ /*
+ 1 row from query 1:
+ contract_folder_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+ 2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	Id licitación: 2023",Deepseek Coder 1.3B fine-tuned 2,"[9, 'error de sintaxis en o cerca de «Dada»\nLINE 2: Dada una pregunta de entrada, crea una consulta de postgresq...\n        ^\n']",False,False,Query inválida,Query inválida
+80,220,Muestra los expedientes de Obras registrados con estado Resuelto.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Obras' AND contract_folder_status = 'Resuelto';,expedientes,"{'tipo': 'Obras', 'estado': 'Resuelto'}",tipo_estado,SELECT * FROM expedientes WHERE contract_folder_status = 'Resuelto';,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0.2222222222222222,1.0
+81,221,Muestra los expedientes de Gestión de Servicios Públicos registrados con un importe menor a 359000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Gestión de Servicios Públicos' AND total_amount < 359000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'cuantia': 359000}",tipo_cuantia_inferior,SELECT * FROM contrac.contratos_de_contratacion.expedientes WHERE summary.total_amount < 359000;,Deepseek Coder 1.3B fine-tuned 2,"[11, 'no están implementadas las referencias entre bases de datos: «contrac.contratos_de_contratacion.expedientes»\nLINE 1: SELECT * FROM contrac.contratos_de_contratacion.expedientes ...\n                      ^\n']",False,False,Query inválida,Query inválida
+82,222,Muestra los expedientes de Suministros registrados con un importe mayor a 864000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Suministros' AND total_amount > 864000;,expedientes,"{'tipo': 'Suministros', 'cuantia': 864000}",tipo_cuantia_superior,SELECT * FROM contracfol.expedientes WHERE totalamount > 864000;,Deepseek Coder 1.3B fine-tuned 2,"[12, 'no existe la relación «contracfol.expedientes»\nLINE 1: SELECT * FROM contracfol.expedientes WHERE totalamount > 864...\n                      ^\n']",False,False,Query inválida,Query inválida
+83,223,"Muestra los expedientes de Concesión de Servicios, Publicado, cuyo importe sea menor a 194000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Concesión de Servicios' AND contract_folder_status = 'Publicado' AND total_amount < 194000;,expedientes,"{'tipo': 'Concesión de Servicios', 'estado': 'Publicado', 'cuantia': 194000}",tipo_estado_cuantia_inferior,SELECT * FROM contracciondelestado.es.expedientes WHERE summary LIKE '%194000%' ;,Deepseek Coder 1.3B fine-tuned 2,"[13, 'no están implementadas las referencias entre bases de datos: «contracciondelestado.es.expedientes»\nLINE 1: SELECT * FROM contracciondelestado.es.expedientes WHERE summ...\n                      ^\n']",False,False,Query inválida,Query inválida
+84,224,"Muestra los expedientes de Servicios, Adjudicado, cuyo importe sea superior a 558000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios' AND contract_folder_status = 'Adjudicado' AND total_amount > 558000;,expedientes,"{'tipo': 'Servicios', 'estado': 'Adjudicado', 'cuantia': 558000}",tipo_estado_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 558000;,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0.09615384615384616,1.0
+85,225,Muestra los expedientes Adjudicado cuyo importe sea menor a 459000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount < 459000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 459000}",estado_cuantia_inferior,SELECT * FROM contracfolder.contracfolder_es618 WHERE estimatedoverallcontractamount < 459000;,Deepseek Coder 1.3B fine-tuned 2,"[15, 'no existe la relación «contracfolder.contracfolder_es618»\nLINE 1: SELECT * FROM contracfolder.contracfolder_es618 WHERE estima...\n                      ^\n']",False,False,Query inválida,Query inválida
+86,226,Solicito información de expedientes en Rectorado de la Universidad de Granada cuyo coste no supere 72000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Rectorado de la Universidad de Granada' AND expedientes.total_amount < 72000;,expedientes,"{'entidad': 'Rectorado de la Universidad de Granada', 'cuantia': 72000}",entidad_cuantia_inferior,SELECT * FROM contracfolder.contratos WHERE summary.totalamount > 72000;,Deepseek Coder 1.3B fine-tuned 2,"[16, 'no existe la relación «contracfolder.contratos»\nLINE 1: SELECT * FROM contracfolder.contratos WHERE summary.totalamo...\n                      ^\n']",False,False,Query inválida,Query inválida
+87,227,Muestra los expedientes de Patrimonial registrados en Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo' AND expedientes.procurement_project_type_code = 'Patrimonial';,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo'}",entidad_tipo,"SELECT * FROM contracad.contrataciondelestado.expedientes e JOIN contracad.contrataciondelestado.entidades e2 ON e.party_nif = e2.nif WHERE e.contract_folder_id = '2023/20' AND e2.party_subentity_code = 'ES3'
+Id licitación: 2023/20;",Deepseek Coder 1.3B fine-tuned 2,"[17, 'error de sintaxis en o cerca de «Id»\nLINE 2: Id licitación: 2023/20;\n        ^\n']",False,False,Query inválida,Query inválida
+88,228,Solicito información de expedientes en Alcaldía del Ayuntamiento de Zamora.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Alcaldía del Ayuntamiento de Zamora';,expedientes,{'entidad': 'Alcaldía del Ayuntamiento de Zamora'},entidad,SELECT * FROM EXPEDIENTES WHERE CONTRACT_FOLDER_ID = '2023/20' AND PARTY_NIF = 'S4133001J';,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0.0,0.0
+89,229,Solicito información de expedientes en Navarra que no superen 730000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Navarra' AND expedientes.total_amount < 730000;,expedientes,"{'region': 'Navarra', 'cuantia': 730000}",region_cuantia_inferior,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Solicito información de expedientes en Navarra que no superen 730000€. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM expedientes WHERE total_amount > 730000 AND party_nif NOT IN (SELECT DISTINCT party_nif FROM expedientes WHERE total_amount > 730000 AND party_nif NOT IN (SELECT DISTINCT party_nif FROM expedientes WHERE total 
+
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+1A	Kosovo	1A
+28	Sevilla	ES
+37	Madrid	ES
+40	Asturias	ES618
+54	Islas del Canal del Sol	ES514
+56	Bahía de Banderas, la	513254Costa del Evroy, la
+63	La Plata	2801300
+72	Las Tunas de Soria	373444Codeia del la
+86	León	1501434�lta de la Cruz
+90	�mara Informal	E923044Imp際na",Deepseek Coder 1.3B fine-tuned 2,"[19, 'error de sintaxis en o cerca de «Dada»\nLINE 2: Dada una pregunta de entrada, crea una consulta de postgresq...\n        ^\n']",False,False,Query inválida,Query inválida
+90,230,Solicito información de contratos de Servicios.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios';,expedientes,{'tipo': 'Servicios'},tipo,SELECT * FROM documentos d JOIN expedientes e ON d.contract_folder_id = e.contract_folder_id JOIN entidades e2 ON e2.nif = e.party_nif JOIN regiones r ON r.country_subentity_code = e2.party_subentity_code JOIN paises p ON p.country_code = r.country_code;,Deepseek Coder 1.3B fine-tuned 2,"[20, 'no existe la columna d.contract_folder_id\nLINE 1: SELECT * FROM documentos d JOIN expedientes e ON d.contract_...\n                                                         ^\nHINT:  Probablemente quiera hacer referencia a la columna «e.contract_folder_id».\n']",False,False,Query inválida,Query inválida
+91,231,Solicito información de contratos Anuncio Previo.,SELECT * FROM expedientes WHERE contract_folder_status = 'Anuncio Previo';,expedientes,{'estado': 'Anuncio Previo'},estado,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Solicito información de contratos Anuncio Previo. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM documentos d JOIN expedientes e ON d.contract_folder_id = e.contract_folder_id WHERE e.party_nif = 'S4133001J'",Deepseek Coder 1.3B fine-tuned 2,"[21, 'error de sintaxis en o cerca de «Dada»\nLINE 2: Dada una pregunta de entrada, crea una consulta de postgresq...\n        ^\n']",False,False,Query inválida,Query inválida
+92,232,Muestra los expedientes registrados que no superan 306000€.,SELECT * FROM expedientes WHERE total_amount < 306000;,expedientes,{'cuantia': 306000},cuantia_inferior,SELECT * FROM contrac.expedientes WHERE total_amount > 306000;,Deepseek Coder 1.3B fine-tuned 2,"[22, 'no existe la relación «contrac.expedientes»\nLINE 1: SELECT * FROM contrac.expedientes WHERE total_amount > 30600...\n                      ^\n']",False,False,Query inválida,Query inválida
+93,233,Muestra los expedientes registrados que exceden 520000€.,SELECT * FROM expedientes WHERE total_amount > 520000;,expedientes,{'cuantia': 520000},cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 520000;,Deepseek Coder 1.3B fine-tuned 2,Query válida,True,True,1.0,1.0
+94,234,Solicito información de expedientes de Servicios en Guadalajara.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Guadalajara' AND expedientes.procurement_project_type_code = 'Servicios';,expedientes,"{'tipo': 'Servicios', 'region': 'Guadalajara'}",region_tipo,SELECT * FROM expedientes WHERE party_nif = 'S4133001J';,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0.0,0.0
+95,235,Solicito información de expedientes Anuncio Previo en Este.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Este' AND expedientes.contract_folder_status = 'Anuncio Previo';,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Este'}",region_estado,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Solicito información de expedientes Anuncio Previo en Este. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM documentos d JOIN expedientes e ON d.contract_folder_id = e.contract_folder_id WHERE e.summary LIKE '%Suministros%' AND e.procurement_project_type_code = 'Suministros' AND e.procurement_project_subtype_name = 'Adquisición' AND e.budget_currency = 'EUR' AND e.contract_folder_status NOT IN ('En evaluación') AND e.party_nif = 'S4133001J' AND e.summary LIKE '%3.23/20830.0084%' AND e.link LIKE '%https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573%' AND e.summary LIKE '%Ejecución de las obras del proyecto de%' AND e.telephone NOT LIKE '%[^0-9]%' AND e.telefax NOT LIKE '%[^0-9]%' AND e.website_uri IS NOT NULL AND",Deepseek Coder 1.3B fine-tuned 2,"[25, 'error de sintaxis en o cerca de «Dada»\nLINE 2: Dada una pregunta de entrada, crea una consulta de postgresq...\n        ^\n']",False,False,Query inválida,Query inválida
+96,236,Solicito información de expedientes en Canarias que excedan 520000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Canarias' AND expedientes.total_amount > 520000;,expedientes,"{'region': 'Canarias', 'cuantia': 520000}",region_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 520000;,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0.018518518518518517,1.0
+97,237,"Muestra los expedientes de Privado en Asturias, con estado Adjudicado, y cuantía mayor a 560000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Asturias' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 560000;,expedientes,"{'tipo': 'Privado', 'region': 'Asturias', 'estado': 'Adjudicado', 'cuantia': 560000}",region_tipo_estado_cuantia_superior,SELECT * FROM contracciondelestado.contrataciondees.expedientes e JOIN contracciondelestado.contrataciondees.entidades e2 ON e.party_nif = e2.nif WHERE e.contract_folder_status = 'Adjudicado' AND e.estimated_overall_contract_amount > 560000.00  de 	contrataciondelestado.es;,Deepseek Coder 1.3B fine-tuned 2,"[27, 'error de sintaxis en o cerca de «de»\nLINE 1: ... e.estimated_overall_contract_amount > 560000.00  de  contra...\n                                                             ^\n']",False,False,Query inválida,Query inválida
+98,238,Muestra los expedientes de Servicios en Huesca que tengan estado En evaluación.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Huesca' AND expedientes.procurement_project_type_code = 'Servicios' AND expedientes.contract_folder_status = 'En evaluación';,expedientes,"{'tipo': 'Servicios', 'region': 'Huesca', 'estado': 'En evaluación'}",region_tipo_estado,SELECT * FROM expedientes WHERE summary LIKE '%Servicios%' AND contract_folder_status = 'En evaluación';,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0.0,0.0
+99,239,Muestra los expedientes de Patrimonial en El Hierro con cuantía menor a 146000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'El Hierro' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.total_amount < 146000;,expedientes,"{'tipo': 'Patrimonial', 'region': 'El Hierro', 'cuantia': 146000}",region_tipo_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount < 146000;,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0.0,0
+100,240,Muestra los expedientes de Suministros en Centro (ES) con cuantía mayor a 315000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Centro (ES)' AND expedientes.procurement_project_type_code = 'Suministros' AND expedientes.total_amount > 315000;,expedientes,"{'tipo': 'Suministros', 'region': 'Centro (ES)', 'cuantia': 315000}",region_tipo_cuantia_superior,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Muestra los expedientes de Suministros en Centro (ES) con cuantía mayor a 315000€. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM contracfolder.contratos WHERE procurementprojectsubtype.name = 'Suministros' AND procurementprojecttype.code = '2' AND contracfolder.contractfolderstatus = 'En evaluación' AND contracfolder.taxexclusivetotalamount > 315000 AND contracfolder.placelanguagetype = 'es' AND contracfolder.contracfoldercurrencycode = 'EUR' AND contracfolder.contratfolderid LIKE '%.%' AND contracfolder.contratfolderid NOT LIKE '%_Q%' AND contracfolder.contratfolderid NOT LIKE '%_200%' AND contracfolder.contratfolderid NOT LIKE '%.8%' AND contracfolder.contratfolderid NOT LIKE '__%3%' AND contracfolder.placelanguagetype != 'es' AND contracfolder.placelanguagetype != 'E' AND contracfolder.placelanguagetype != 'en' AND contracfolder.placelanguagetype !=",Deepseek Coder 1.3B fine-tuned 2,"[30, 'error de sintaxis en o cerca de «Dada»\nLINE 2: Dada una pregunta de entrada, crea una consulta de postgresq...\n        ^\n']",False,False,Query inválida,Query inválida
+101,241,Muestra los expedientes Anuncio Previo de Soria con cuantía menor a 566000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Soria' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount < 566000;,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Soria', 'cuantia': 566000}",region_estado_cuantia_inferior,SELECT * FROM contracciondelestado.contratacionesn4  WHERE summary LIKE '%3.23/20830.0084%' AND total_amount < 566000 AND contract_folder_status = 'En evaluación' AND procurement_project_type_code = 'Suministros' AND procurement_project_subtype_name = 'Mantenimiento y reparación de las bomas de aguas' AND budget_currency = 'EUR' AND family_sindicator_name = 'Suministros del planteo de la planta de aguas' AND plant_materials_name = 'Aguas fecales y pluviales' AND building_materials_name = 'Otros materiales' AND seach_against_area_country_name = 'Bélgica'  ;,Deepseek Coder 1.3B fine-tuned 2,"[31, 'no existe la relación «contracciondelestado.contratacionesn4»\nLINE 1: SELECT * FROM contracciondelestado.contratacionesn4  WHERE s...\n                      ^\n']",False,False,Query inválida,Query inválida
+102,242,Muestra los expedientes Adjudicado de Girona con cuantía mayor a 194000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Girona' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 194000;,expedientes,"{'estado': 'Adjudicado', 'region': 'Girona', 'cuantia': 194000}",region_estado_cuantia_superior,SELECT * FROM contracfolder.contratos WHERE budget_currency = 'EUR' AND estimated_overall_contract_amount > 194000;,Deepseek Coder 1.3B fine-tuned 2,"[32, 'no existe la relación «contracfolder.contratos»\nLINE 1: SELECT * FROM contracfolder.contratos WHERE budget_currency ...\n                      ^\n']",False,False,Query inválida,Query inválida
+103,243,"Muestra los expedientes de Concesión de Servicios en Castilla-La Mancha, con estado Resuelto, y cuantía menor a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Castilla-La Mancha' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 708000;,expedientes,"{'tipo': 'Concesión de Servicios', 'region': 'Castilla-La Mancha', 'estado': 'Resuelto', 'cuantia': 708000}",region_tipo_estado_cuantia_inferior,SELECT * FROM contracciondelestado.es.expedientes e JOIN contracciondelestado.es.entidades e2 ON e.party_nif = e2.nif WHERE e.contract_folder_status = 'Resuelto' AND e.tax_exclusive_amount < 708000;,Deepseek Coder 1.3B fine-tuned 2,"[33, 'no están implementadas las referencias entre bases de datos: «contracciondelestado.es.expedientes»\nLINE 1: SELECT * FROM contracciondelestado.es.expedientes e JOIN con...\n                      ^\n']",False,False,Query inválida,Query inválida
+104,244,Muestra los expedientes Adjudicado cuyo importe sea mayor a 818000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount > 818000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 818000}",estado_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 818000;,Deepseek Coder 1.3B fine-tuned 2,Query válida,False,False,0.1794871794871795,1.0
+105,210,Solicito información de expedientes en Cuenca.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Cuenca';,expedientes,{'region': 'Cuenca'},region,"SELECT * 
+FROM expedientes 
+JOIN entidades ON expedientes.party_nif = entidades.nif 
+JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code 
+WHERE regiones.country_subentity_name = 'Cuenca';",OpenAI 4o,Query válida,False,True,1.0,1.0
+106,211,"Muestra los expedientes de Concesión de Servicios en Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara, con estado Publicado, y un coste inferior a 597000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount < 597000;",expedientes,"{'tipo': 'Concesión de Servicios', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara', 'estado': 'Publicado', 'cuantia': 597000}",entidad_tipo_estado_cuantia_inferior,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+WHERE e.procurement_project_subtype_name = 'Concesión de Servicios'
+  AND en.name = 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara'
+  AND e.contract_folder_status = 'Publicado'
+  AND e.estimated_overall_contract_amount < 597000;",OpenAI 4o,Query válida,False,False,0,0
+107,212,"Solicito información de expedientes en Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A cuyo coste exceda 306000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A' AND expedientes.total_amount > 306000;",expedientes,"{'entidad': 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A', 'cuantia': 306000}",entidad_cuantia_superior,"SELECT * 
+FROM expedientes 
+WHERE party_nif = (
+    SELECT nif 
+    FROM entidades 
+    WHERE name = 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A'
+) 
+AND estimated_overall_contract_amount > 306000;",OpenAI 4o,Query válida,False,False,0,0
+108,213,"Muestra los expedientes de Obras en Televisión Pública de Canarias, S.A. cuyo estado sea En evaluación.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Televisión Pública de Canarias, S.A.' AND expedientes.procurement_project_type_code = 'Obras' AND expedientes.contract_folder_status = 'En evaluación';",expedientes,"{'tipo': 'Obras', 'entidad': 'Televisión Pública de Canarias, S.A.', 'estado': 'En evaluación'}",entidad_tipo_estado,"FROM expedientes
+JOIN entidades ON expedientes.party_nif = entidades.nif
+WHERE expedientes.procurement_project_type_code = 'Obras'
+AND entidades.name = 'Televisión Pública de Canarias, S.A.'
+AND expedientes.contract_folder_status = 'En evaluación';",OpenAI 4o,"[3, 'error de sintaxis en o cerca de «FROM»\nLINE 1: FROM expedientes\n        ^\n']",False,False,Query inválida,Query inválida
+109,214,Muestra los expedientes de Gestión de Servicios Públicos en Departamento de Salud Alcoy. Dirección Económica-Gerencia que se sitúen por debajo de 597000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Departamento de Salud Alcoy. Dirección Económica-Gerencia' AND expedientes.procurement_project_type_code = 'Gestión de Servicios Públicos' AND expedientes.total_amount < 597000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'entidad': 'Departamento de Salud Alcoy. Dirección Económica-Gerencia', 'cuantia': 597000}",entidad_tipo_cuantia_inferior,"Lo siento, pero no puedo ayudarte con eso.",OpenAI 4o,"[4, 'error de sintaxis en o cerca de «Lo»\nLINE 1: Lo siento, pero no puedo ayudarte con eso.\n        ^\n']",False,False,Query inválida,Query inválida
+110,215,Muestra los expedientes de Privado en Dirección del Centro Penitenciario de Soria que se sitúen por encima de 167000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección del Centro Penitenciario de Soria' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.total_amount > 167000;,expedientes,"{'tipo': 'Privado', 'entidad': 'Dirección del Centro Penitenciario de Soria', 'cuantia': 167000}",entidad_tipo_cuantia_superior,"Lo siento, pero no puedo completar la consulta solicitada ya que no hay información suficiente en el esquema proporcionado para identificar los expedientes de ""Privado en Dirección del Centro Penitenciario de Soria"".",OpenAI 4o,"[5, 'error de sintaxis en o cerca de «Lo»\nLINE 1: Lo siento, pero no puedo completar la consulta solicitada ya...\n        ^\n']",False,False,Query inválida,Query inválida
+111,216,"Muestra los expedientes de Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona, Resuelto, con un presupuesto inferior a 918000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 918000;",expedientes,"{'entidad': 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona', 'estado': 'Resuelto', 'cuantia': 918000}",entidad_estado_cuantia_inferior,"SELECT *
+FROM expedientes
+WHERE party_nif = (
+    SELECT nif
+    FROM entidades
+    WHERE name = 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona'
+)
+AND contract_folder_status = 'Resuelto'
+AND estimated_overall_contract_amount < 918000;",OpenAI 4o,Query válida,False,False,1.0,1.0
+112,217,"Muestra los expedientes de Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS), Anuncio Previo, con un presupuesto superior a 992000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount > 992000;,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Anuncio Previo', 'cuantia': 992000}",entidad_estado_cuantia_superior,"SELECT *
+FROM expedientes
+WHERE party_nif = (
+    SELECT nif
+    FROM entidades
+    WHERE name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)'
+)
+AND procurement_project_type_code = 'Anuncio Previo'
+AND estimated_overall_contract_amount > 992000;",OpenAI 4o,Query válida,False,False,0,0
+113,218,"Muestra los expedientes de Patrimonial en Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia, con estado Publicado, y un coste superior a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount > 708000;,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia', 'estado': 'Publicado', 'cuantia': 708000}",entidad_tipo_estado_cuantia_superior,"Lo siento, pero no puedo proporcionar la consulta SQL exacta que estás solicitando.",OpenAI 4o,"[8, 'error de sintaxis en o cerca de «Lo»\nLINE 1: Lo siento, pero no puedo proporcionar la consulta SQL exacta...\n        ^\n']",False,False,Query inválida,Query inválida
+114,219,Muestra los expedientes registrados en Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS) con estado Resuelto.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Resuelto';,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Resuelto'}",entidad_estado,"SELECT * 
+FROM expedientes 
+WHERE party_nif = (
+    SELECT nif 
+    FROM entidades 
+    WHERE name = 'Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)'
+) 
+AND contract_folder_status = 'Resuelto';",OpenAI 4o,Query válida,False,False,0,0
+115,220,Muestra los expedientes de Obras registrados con estado Resuelto.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Obras' AND contract_folder_status = 'Resuelto';,expedientes,"{'tipo': 'Obras', 'estado': 'Resuelto'}",tipo_estado,"SELECT * 
+FROM expedientes 
+WHERE procurement_project_type_code = 'Obras' 
+AND contract_folder_status = 'Resuelto';",OpenAI 4o,Query válida,False,True,1.0,1.0
+116,221,Muestra los expedientes de Gestión de Servicios Públicos registrados con un importe menor a 359000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Gestión de Servicios Públicos' AND total_amount < 359000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'cuantia': 359000}",tipo_cuantia_inferior,SELECT * FROM expedientes WHERE procurement_project_subtype_name = 'Gestión de Servicios Públicos' AND estimated_overall_contract_amount < 359000;,OpenAI 4o,Query válida,False,False,0.0,0
+117,222,Muestra los expedientes de Suministros registrados con un importe mayor a 864000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Suministros' AND total_amount > 864000;,expedientes,"{'tipo': 'Suministros', 'cuantia': 864000}",tipo_cuantia_superior,"SELECT *
+FROM expedientes
+WHERE procurement_project_type_code = 'Suministros'
+  AND estimated_overall_contract_amount > 864000;",OpenAI 4o,Query válida,False,False,0.6666666666666666,0.8
+118,223,"Muestra los expedientes de Concesión de Servicios, Publicado, cuyo importe sea menor a 194000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Concesión de Servicios' AND contract_folder_status = 'Publicado' AND total_amount < 194000;,expedientes,"{'tipo': 'Concesión de Servicios', 'estado': 'Publicado', 'cuantia': 194000}",tipo_estado_cuantia_inferior,"SELECT *
+FROM expedientes
+WHERE procurement_project_type_code = 'Concesión de Servicios'
+  AND contract_folder_status = 'Publicado'
+  AND estimated_overall_contract_amount < 194000;",OpenAI 4o,Query válida,False,False,0.0,0
+119,224,"Muestra los expedientes de Servicios, Adjudicado, cuyo importe sea superior a 558000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios' AND contract_folder_status = 'Adjudicado' AND total_amount > 558000;,expedientes,"{'tipo': 'Servicios', 'estado': 'Adjudicado', 'cuantia': 558000}",tipo_estado_cuantia_superior,"SELECT * 
+FROM expedientes 
+WHERE procurement_project_type_code = 'Servicios' 
+AND contract_folder_status = 'Adjudicado' 
+AND estimated_overall_contract_amount > 558000;",OpenAI 4o,Query válida,False,False,0.7142857142857143,1.0
+120,225,Muestra los expedientes Adjudicado cuyo importe sea menor a 459000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount < 459000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 459000}",estado_cuantia_inferior,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount < 459000;,OpenAI 4o,Query válida,True,True,1.0,1.0
+121,226,Solicito información de expedientes en Rectorado de la Universidad de Granada cuyo coste no supere 72000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Rectorado de la Universidad de Granada' AND expedientes.total_amount < 72000;,expedientes,"{'entidad': 'Rectorado de la Universidad de Granada', 'cuantia': 72000}",entidad_cuantia_inferior,"SELECT * 
+FROM expedientes 
+WHERE party_nif = (SELECT nif FROM entidades WHERE name = 'Rectorado de la Universidad de Granada') 
+AND estimated_overall_contract_amount <= 72000;",OpenAI 4o,Query válida,False,False,0,0
+122,227,Muestra los expedientes de Patrimonial registrados en Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo' AND expedientes.procurement_project_type_code = 'Patrimonial';,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo'}",entidad_tipo,"Lo siento, pero no puedo proporcionar la consulta solicitada ya que no hay información suficiente en el esquema proporcionado para identificar los expedientes de ""Patrimonial"" registrados en ""Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo"".",OpenAI 4o,"[17, 'error de sintaxis en o cerca de «Lo»\nLINE 1: Lo siento, pero no puedo proporcionar la consulta solicitada...\n        ^\n']",False,False,Query inválida,Query inválida
+123,228,Solicito información de expedientes en Alcaldía del Ayuntamiento de Zamora.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Alcaldía del Ayuntamiento de Zamora';,expedientes,{'entidad': 'Alcaldía del Ayuntamiento de Zamora'},entidad,"SELECT * 
+FROM expedientes 
+WHERE party_nif = (SELECT nif FROM entidades WHERE name = 'Alcaldía del Ayuntamiento de Zamora');",OpenAI 4o,Query válida,False,False,1.0,1.0
+124,229,Solicito información de expedientes en Navarra que no superen 730000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Navarra' AND expedientes.total_amount < 730000;,expedientes,"{'region': 'Navarra', 'cuantia': 730000}",region_cuantia_inferior,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE r.country_subentity_name = 'Navarra' 
+AND e.estimated_overall_contract_amount <= 730000;",OpenAI 4o,Query válida,False,False,0,0
+125,230,Solicito información de contratos de Servicios.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios';,expedientes,{'tipo': 'Servicios'},tipo,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios';,OpenAI 4o,Query válida,True,True,1.0,1.0
+126,231,Solicito información de contratos Anuncio Previo.,SELECT * FROM expedientes WHERE contract_folder_status = 'Anuncio Previo';,expedientes,{'estado': 'Anuncio Previo'},estado,SELECT * FROM expedientes WHERE contract_folder_status = 'Anuncio Previo';,OpenAI 4o,Query válida,True,True,1.0,1.0
+127,232,Muestra los expedientes registrados que no superan 306000€.,SELECT * FROM expedientes WHERE total_amount < 306000;,expedientes,{'cuantia': 306000},cuantia_inferior,SELECT * FROM expedientes WHERE estimated_overall_contract_amount <= 306000;,OpenAI 4o,Query válida,False,False,0.9404255319148936,0.9822222222222222
+128,233,Muestra los expedientes registrados que exceden 520000€.,SELECT * FROM expedientes WHERE total_amount > 520000;,expedientes,{'cuantia': 520000},cuantia_superior,SELECT * FROM expedientes WHERE estimated_overall_contract_amount > 520000;,OpenAI 4o,Query válida,False,False,0.7424242424242424,0.9074074074074074
+129,234,Solicito información de expedientes de Servicios en Guadalajara.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Guadalajara' AND expedientes.procurement_project_type_code = 'Servicios';,expedientes,"{'tipo': 'Servicios', 'region': 'Guadalajara'}",region_tipo,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE e.procurement_project_type_code = 'Servicios' 
+AND r.country_subentity_name = 'Guadalajara';",OpenAI 4o,Query válida,False,False,1.0,1.0
+130,235,Solicito información de expedientes Anuncio Previo en Este.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Este' AND expedientes.contract_folder_status = 'Anuncio Previo';,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Este'}",region_estado,"SELECT * 
+FROM expedientes 
+WHERE contract_folder_status = 'Anuncio Previo' AND procurement_project_type_code = 'Este';",OpenAI 4o,Query válida,False,False,0,0
+131,236,Solicito información de expedientes en Canarias que excedan 520000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Canarias' AND expedientes.total_amount > 520000;,expedientes,"{'region': 'Canarias', 'cuantia': 520000}",region_cuantia_superior,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE r.country_subentity_name = 'Canarias' 
+AND e.estimated_overall_contract_amount > 520000;",OpenAI 4o,Query válida,False,False,1.0,1.0
+132,237,"Muestra los expedientes de Privado en Asturias, con estado Adjudicado, y cuantía mayor a 560000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Asturias' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 560000;,expedientes,"{'tipo': 'Privado', 'region': 'Asturias', 'estado': 'Adjudicado', 'cuantia': 560000}",region_tipo_estado_cuantia_superior,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE en.type_code = 'Privado' 
+AND r.country_subentity_name = 'Asturias' 
+AND e.contract_folder_status = 'Adjudicado' 
+AND e.estimated_overall_contract_amount > 560000;",OpenAI 4o,Query válida,False,False,0,0
+133,238,Muestra los expedientes de Servicios en Huesca que tengan estado En evaluación.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Huesca' AND expedientes.procurement_project_type_code = 'Servicios' AND expedientes.contract_folder_status = 'En evaluación';,expedientes,"{'tipo': 'Servicios', 'region': 'Huesca', 'estado': 'En evaluación'}",region_tipo_estado,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE e.procurement_project_type_code = 'Servicios' 
+AND e.contract_folder_status = 'En evaluación' 
+AND r.country_subentity_name = 'Huesca';",OpenAI 4o,Query válida,False,False,1.0,1.0
+134,239,Muestra los expedientes de Patrimonial en El Hierro con cuantía menor a 146000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'El Hierro' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.total_amount < 146000;,expedientes,"{'tipo': 'Patrimonial', 'region': 'El Hierro', 'cuantia': 146000}",region_tipo_cuantia_inferior,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE e.procurement_project_subtype_name = 'Patrimonial'
+AND r.country_subentity_name = 'El Hierro'
+AND e.estimated_overall_contract_amount < 146000;",OpenAI 4o,Query válida,False,False,0,0
+135,240,Muestra los expedientes de Suministros en Centro (ES) con cuantía mayor a 315000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Centro (ES)' AND expedientes.procurement_project_type_code = 'Suministros' AND expedientes.total_amount > 315000;,expedientes,"{'tipo': 'Suministros', 'region': 'Centro (ES)', 'cuantia': 315000}",region_tipo_cuantia_superior,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE e.procurement_project_type_code = 'Suministros'
+AND r.country_subentity_code LIKE 'ES%'
+AND e.estimated_overall_contract_amount > 315000;",OpenAI 4o,Query válida,False,False,0.0,0
+136,241,Muestra los expedientes Anuncio Previo de Soria con cuantía menor a 566000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Soria' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount < 566000;,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Soria', 'cuantia': 566000}",region_estado_cuantia_inferior,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE e.procurement_project_type_code = 'Anuncio Previo'
+AND r.country_subentity_name = 'Soria'
+AND e.estimated_overall_contract_amount < 566000;",OpenAI 4o,Query válida,False,False,0,0
+137,242,Muestra los expedientes Adjudicado de Girona con cuantía mayor a 194000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Girona' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 194000;,expedientes,"{'estado': 'Adjudicado', 'region': 'Girona', 'cuantia': 194000}",region_estado_cuantia_superior,"SELECT * 
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE e.contract_folder_status = 'Adjudicado' 
+AND r.country_subentity_name = 'Girona' 
+AND e.estimated_overall_contract_amount > 194000;",OpenAI 4o,Query válida,False,False,0,0
+138,243,"Muestra los expedientes de Concesión de Servicios en Castilla-La Mancha, con estado Resuelto, y cuantía menor a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Castilla-La Mancha' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 708000;,expedientes,"{'tipo': 'Concesión de Servicios', 'region': 'Castilla-La Mancha', 'estado': 'Resuelto', 'cuantia': 708000}",region_tipo_estado_cuantia_inferior,"SELECT *
+FROM expedientes e
+JOIN entidades en ON e.party_nif = en.nif
+JOIN regiones r ON en.party_subentity_code = r.country_subentity_code
+WHERE e.procurement_project_subtype_name = 'Concesión de Servicios'
+  AND r.country_subentity_name = 'Castilla-La Mancha'
+  AND e.contract_folder_status = 'Resuelto'
+  AND e.estimated_overall_contract_amount < 708000;",OpenAI 4o,Query válida,False,False,0,0
+139,244,Muestra los expedientes Adjudicado cuyo importe sea mayor a 818000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount > 818000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 818000}",estado_cuantia_superior,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND estimated_overall_contract_amount > 818000;,OpenAI 4o,Query válida,False,False,0.7,1.0

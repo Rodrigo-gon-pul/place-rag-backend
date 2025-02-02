@@ -1,0 +1,840 @@
+,Pregunta,Consulta,Tabla,Valores,Categoría,Consulta Generada
+210,Solicito información de expedientes en Cuenca.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Cuenca';,expedientes,{'region': 'Cuenca'},region,SELECT * FROM expedientes WHERE party_nif = 'S4133001J' ;
+211,"Muestra los expedientes de Concesión de Servicios en Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara, con estado Publicado, y un coste inferior a 597000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount < 597000;",expedientes,"{'tipo': 'Concesión de Servicios', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara', 'estado': 'Publicado', 'cuantia': 597000}",entidad_tipo_estado_cuantia_inferior,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Muestra los expedientes de Concesión de Servicios en Presidencia del Consorcio para el Servicio de Prevención Extinción de Incendios, Protección Civil y Salvamento de la Provincia de Guadalajara, con estado Publicado, y un coste inferior a 597000€. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM contracciondeplataformas.expedientes e WHERE summary LIKE '%Concesión de Servicios%' AND contract_folder_status = 'En evaluación' AND procurement_project_type_code = 'Suministros' AND procurement_project_subtype_name = 'Adquisición' AND budget_currency = 'EUR' AND tax_exclusive_amount < 597000.00 AND summary LIKE '%coste%' AND summary LIKE '%prevención%' AND summary NOT LIKE '%síndrome%' AND summary NOT LIKE '%síntomas%' AND summary NOT LIKE '%fiebre%' AND summary NOT LIKE '%dolor%' AND summary NOT LIKE '%mal%' AND summary NOT LIKE '%garganta%' AND summary NOT LIKE '%pérdida%' AND summary NOT LIKE '%líquido%' AND summary NOT LIKE '%comprado%' AND summary NOT LIKE '%pintura%' AND summary NOT LIKE '%pintura%' AND summary NOT LIKE '%pintura%' AND summary NOT LIKE"
+212,"Solicito información de expedientes en Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A cuyo coste exceda 306000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A' AND expedientes.total_amount > 306000;",expedientes,"{'entidad': 'Consejo de Administración de la Sociedad de Gestión de Activos procedentes de la Reestructuración Bancaria, S.A', 'cuantia': 306000}",entidad_cuantia_superior,SELECT * FROM expedientes WHERE summary LIKE '%306000%S%';
+213,"Muestra los expedientes de Obras en Televisión Pública de Canarias, S.A. cuyo estado sea En evaluación.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Televisión Pública de Canarias, S.A.' AND expedientes.procurement_project_type_code = 'Obras' AND expedientes.contract_folder_status = 'En evaluación';",expedientes,"{'tipo': 'Obras', 'entidad': 'Televisión Pública de Canarias, S.A.', 'estado': 'En evaluación'}",entidad_tipo_estado,SELECT * FROM contracad.contratos.expedientes e WHERE e.contract_folder_status = 'En evaluación' AND e.party_nif = 'S4133001J' ;
+214,Muestra los expedientes de Gestión de Servicios Públicos en Departamento de Salud Alcoy. Dirección Económica-Gerencia que se sitúen por debajo de 597000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Departamento de Salud Alcoy. Dirección Económica-Gerencia' AND expedientes.procurement_project_type_code = 'Gestión de Servicios Públicos' AND expedientes.total_amount < 597000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'entidad': 'Departamento de Salud Alcoy. Dirección Económica-Gerencia', 'cuantia': 597000}",entidad_tipo_cuantia_inferior,SELECT * FROM contracad.expedientes e WHERE e.contract_folder_id LIKE '3%' AND e.budget_currency = 'EUR' AND e.total_amount < 597000;
+215,Muestra los expedientes de Privado en Dirección del Centro Penitenciario de Soria que se sitúen por encima de 167000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección del Centro Penitenciario de Soria' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.total_amount > 167000;,expedientes,"{'tipo': 'Privado', 'entidad': 'Dirección del Centro Penitenciario de Soria', 'cuantia': 167000}",entidad_tipo_cuantia_superior,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Muestra los expedientes de Privado en Dirección del Centro Penitenciario de Soria que se sit�en por encima de 167000€. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM contracad.expedientes e WHERE e.total_amount > 167000 AND e.party_nif IN (SELECT p.nif FROM contracad.entidades p WHERE p.party_subentity_code = 'Soria')
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+16 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/doc"
+216,"Muestra los expedientes de Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona, Resuelto, con un presupuesto inferior a 918000€.","SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 918000;",expedientes,"{'entidad': 'Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona', 'estado': 'Resuelto', 'cuantia': 918000}",entidad_estado_cuantia_inferior,"SELECT * FROM contracciondelestadotwb.expedientes e JOIN contracciondelestadotwb.entidades e2 ON e.party_nif = e2.nif WHERE e.summary LIKE '%Concejalía De Cultura, Juventud, Fiestas, Comunicación y Relaciones Institucionales, Participación Ciudadana y Turismo del Ayuntamiento de Granadilla de Abona, Resuelto%' AND e.budget_currency = 'EUR' AND e.total_amount < 918000;"
+217,"Muestra los expedientes de Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS), Anuncio Previo, con un presupuesto superior a 992000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount > 992000;,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Anuncio Previo', 'cuantia': 992000}",entidad_estado_cuantia_superior,SELECT * FROM contracfolder.contratos WHERE summary LIKE '%Prevision del servicio ofrecido:%' AND procurement_project_subtype_name = 'Suministros' AND contract_folder_status = 'Adjudicado' AND total_amount > 992000 AND tax_exclusive_amount/total_amount < 0.2;
+218,"Muestra los expedientes de Patrimonial en Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia, con estado Publicado, y un coste superior a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.contract_folder_status = 'Publicado' AND expedientes.total_amount > 708000;,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Presidencia del Consorcio para el Servicio de Prevención y Extinción de Incendios y de Salvamento de la Provincia de Valencia', 'estado': 'Publicado', 'cuantia': 708000}",entidad_tipo_estado_cuantia_superior,SELECT * FROM contracad.expedientes e WHERE e.summary LIKE '%Patrimonial%' AND e.contract_folder_status = 'En evaluación' AND e.budget_currency = 'EUR' AND e.total_amount > 708000.00;
+219,Muestra los expedientes registrados en Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS) con estado Resuelto.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)' AND expedientes.contract_folder_status = 'Resuelto';,expedientes,"{'entidad': 'Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS)', 'estado': 'Resuelto'}",entidad_estado,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Muestra los expedientes registrados en Dirección de Barcelona Supercomputing Center - Centro Nacional de Supercomputación (BSC-CNS) con estado Resuelto. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM contracciondelestado.es.expedientes e JOIN contracciondelestado.es.entidades e2 ON (e.party_nif = e2.nif) WHERE e.contract_folder_status = 'Resuelto' AND e2.party_subentity_code = '28300' AND e2.party_postal_zone = '28020' AND SUBSTRING(e.title, 1, 3) = 'Sumin' 
+ 
+ /*
+ 1 row from query 1:
+ contract_folder_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+ 2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	Id licitación: 2023"
+220,Muestra los expedientes de Obras registrados con estado Resuelto.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Obras' AND contract_folder_status = 'Resuelto';,expedientes,"{'tipo': 'Obras', 'estado': 'Resuelto'}",tipo_estado,SELECT * FROM expedientes WHERE contract_folder_status = 'Resuelto';
+221,Muestra los expedientes de Gestión de Servicios Públicos registrados con un importe menor a 359000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Gestión de Servicios Públicos' AND total_amount < 359000;,expedientes,"{'tipo': 'Gestión de Servicios Públicos', 'cuantia': 359000}",tipo_cuantia_inferior,SELECT * FROM contrac.contratos_de_contratacion.expedientes WHERE summary.total_amount < 359000;
+222,Muestra los expedientes de Suministros registrados con un importe mayor a 864000€.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Suministros' AND total_amount > 864000;,expedientes,"{'tipo': 'Suministros', 'cuantia': 864000}",tipo_cuantia_superior,SELECT * FROM contracfol.expedientes WHERE totalamount > 864000;
+223,"Muestra los expedientes de Concesión de Servicios, Publicado, cuyo importe sea menor a 194000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Concesión de Servicios' AND contract_folder_status = 'Publicado' AND total_amount < 194000;,expedientes,"{'tipo': 'Concesión de Servicios', 'estado': 'Publicado', 'cuantia': 194000}",tipo_estado_cuantia_inferior,SELECT * FROM contracciondelestado.es.expedientes WHERE summary LIKE '%194000%' ;
+224,"Muestra los expedientes de Servicios, Adjudicado, cuyo importe sea superior a 558000€.",SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios' AND contract_folder_status = 'Adjudicado' AND total_amount > 558000;,expedientes,"{'tipo': 'Servicios', 'estado': 'Adjudicado', 'cuantia': 558000}",tipo_estado_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 558000;
+225,Muestra los expedientes Adjudicado cuyo importe sea menor a 459000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount < 459000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 459000}",estado_cuantia_inferior,SELECT * FROM contracfolder.contracfolder_es618 WHERE estimatedoverallcontractamount < 459000;
+226,Solicito información de expedientes en Rectorado de la Universidad de Granada cuyo coste no supere 72000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Rectorado de la Universidad de Granada' AND expedientes.total_amount < 72000;,expedientes,"{'entidad': 'Rectorado de la Universidad de Granada', 'cuantia': 72000}",entidad_cuantia_inferior,SELECT * FROM contracfolder.contratos WHERE summary.totalamount > 72000;
+227,Muestra los expedientes de Patrimonial registrados en Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo' AND expedientes.procurement_project_type_code = 'Patrimonial';,expedientes,"{'tipo': 'Patrimonial', 'entidad': 'Junta de Gobierno del Ayuntamiento de San Andrés del Rabanedo'}",entidad_tipo,"SELECT * FROM contracad.contrataciondelestado.expedientes e JOIN contracad.contrataciondelestado.entidades e2 ON e.party_nif = e2.nif WHERE e.contract_folder_id = '2023/20' AND e2.party_subentity_code = 'ES3'
+Id licitación: 2023/20;"
+228,Solicito información de expedientes en Alcaldía del Ayuntamiento de Zamora.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif WHERE entidades.name = 'Alcaldía del Ayuntamiento de Zamora';,expedientes,{'entidad': 'Alcaldía del Ayuntamiento de Zamora'},entidad,SELECT * FROM EXPEDIENTES WHERE CONTRACT_FOLDER_ID = '2023/20' AND PARTY_NIF = 'S4133001J';
+229,Solicito información de expedientes en Navarra que no superen 730000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Navarra' AND expedientes.total_amount < 730000;,expedientes,"{'region': 'Navarra', 'cuantia': 730000}",region_cuantia_inferior,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Solicito información de expedientes en Navarra que no superen 730000€. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM expedientes WHERE total_amount > 730000 AND party_nif NOT IN (SELECT DISTINCT party_nif FROM expedientes WHERE total_amount > 730000 AND party_nif NOT IN (SELECT DISTINCT party_nif FROM expedientes WHERE total 
+
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+1A	Kosovo	1A
+28	Sevilla	ES
+37	Madrid	ES
+40	Asturias	ES618
+54	Islas del Canal del Sol	ES514
+56	Bahía de Banderas, la	513254Costa del Evroy, la
+63	La Plata	2801300
+72	Las Tunas de Soria	373444Codeia del la
+86	León	1501434�lta de la Cruz
+90	�mara Informal	E923044Imp際na"
+230,Solicito información de contratos de Servicios.,SELECT * FROM expedientes WHERE procurement_project_type_code = 'Servicios';,expedientes,{'tipo': 'Servicios'},tipo,SELECT * FROM documentos d JOIN expedientes e ON d.contract_folder_id = e.contract_folder_id JOIN entidades e2 ON e2.nif = e.party_nif JOIN regiones r ON r.country_subentity_code = e2.party_subentity_code JOIN paises p ON p.country_code = r.country_code;
+231,Solicito información de contratos Anuncio Previo.,SELECT * FROM expedientes WHERE contract_folder_status = 'Anuncio Previo';,expedientes,{'estado': 'Anuncio Previo'},estado,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Solicito información de contratos Anuncio Previo. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM documentos d JOIN expedientes e ON d.contract_folder_id = e.contract_folder_id WHERE e.party_nif = 'S4133001J'"
+232,Muestra los expedientes registrados que no superan 306000€.,SELECT * FROM expedientes WHERE total_amount < 306000;,expedientes,{'cuantia': 306000},cuantia_inferior,SELECT * FROM contrac.expedientes WHERE total_amount > 306000;
+233,Muestra los expedientes registrados que exceden 520000€.,SELECT * FROM expedientes WHERE total_amount > 520000;,expedientes,{'cuantia': 520000},cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 520000;
+234,Solicito información de expedientes de Servicios en Guadalajara.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Guadalajara' AND expedientes.procurement_project_type_code = 'Servicios';,expedientes,"{'tipo': 'Servicios', 'region': 'Guadalajara'}",region_tipo,SELECT * FROM expedientes WHERE party_nif = 'S4133001J';
+235,Solicito información de expedientes Anuncio Previo en Este.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Este' AND expedientes.contract_folder_status = 'Anuncio Previo';,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Este'}",region_estado,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Solicito información de expedientes Anuncio Previo en Este. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM documentos d JOIN expedientes e ON d.contract_folder_id = e.contract_folder_id WHERE e.summary LIKE '%Suministros%' AND e.procurement_project_type_code = 'Suministros' AND e.procurement_project_subtype_name = 'Adquisición' AND e.budget_currency = 'EUR' AND e.contract_folder_status NOT IN ('En evaluación') AND e.party_nif = 'S4133001J' AND e.summary LIKE '%3.23/20830.0084%' AND e.link LIKE '%https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573%' AND e.summary LIKE '%Ejecución de las obras del proyecto de%' AND e.telephone NOT LIKE '%[^0-9]%' AND e.telefax NOT LIKE '%[^0-9]%' AND e.website_uri IS NOT NULL AND"
+236,Solicito información de expedientes en Canarias que excedan 520000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Canarias' AND expedientes.total_amount > 520000;,expedientes,"{'region': 'Canarias', 'cuantia': 520000}",region_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 520000;
+237,"Muestra los expedientes de Privado en Asturias, con estado Adjudicado, y cuantía mayor a 560000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Asturias' AND expedientes.procurement_project_type_code = 'Privado' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 560000;,expedientes,"{'tipo': 'Privado', 'region': 'Asturias', 'estado': 'Adjudicado', 'cuantia': 560000}",region_tipo_estado_cuantia_superior,SELECT * FROM contracciondelestado.contrataciondees.expedientes e JOIN contracciondelestado.contrataciondees.entidades e2 ON e.party_nif = e2.nif WHERE e.contract_folder_status = 'Adjudicado' AND e.estimated_overall_contract_amount > 560000.00  de 	contrataciondelestado.es;
+238,Muestra los expedientes de Servicios en Huesca que tengan estado En evaluación.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Huesca' AND expedientes.procurement_project_type_code = 'Servicios' AND expedientes.contract_folder_status = 'En evaluación';,expedientes,"{'tipo': 'Servicios', 'region': 'Huesca', 'estado': 'En evaluación'}",region_tipo_estado,SELECT * FROM expedientes WHERE summary LIKE '%Servicios%' AND contract_folder_status = 'En evaluación';
+239,Muestra los expedientes de Patrimonial en El Hierro con cuantía menor a 146000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'El Hierro' AND expedientes.procurement_project_type_code = 'Patrimonial' AND expedientes.total_amount < 146000;,expedientes,"{'tipo': 'Patrimonial', 'region': 'El Hierro', 'cuantia': 146000}",region_tipo_cuantia_inferior,SELECT * FROM expedientes WHERE total_amount < 146000;
+240,Muestra los expedientes de Suministros en Centro (ES) con cuantía mayor a 315000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Centro (ES)' AND expedientes.procurement_project_type_code = 'Suministros' AND expedientes.total_amount > 315000;,expedientes,"{'tipo': 'Suministros', 'region': 'Centro (ES)', 'cuantia': 315000}",region_tipo_cuantia_superior,"
+Dada una pregunta de entrada, crea una consulta de postgresql sintácticamente correcta.
+Usa solo los nombres de las columnas que puedes ver en la descripción del esquema.
+No consultes columnas que no existen.
+Utiliza �nicamente las siguientes tablas: 'entidades', 'expedientes', 'paises', 'regiones'
+Esquema de la base de datos:
+
+CREATE TABLE documentos (
+	document_reference_id VARCHAR, 
+	document_uri VARCHAR NOT NULL, 
+	document_type VARCHAR, 
+	contract_id VARCHAR, 
+	CONSTRAINT documentos_pkey PRIMARY KEY (document_uri), 
+	CONSTRAINT documentos_contract_id_fkey FOREIGN KEY(contract_id) REFERENCES expedientes (contract_folder_id)
+)
+
+/*
+3 rows from documentos table:
+document_reference_id	document_uri	document_type	contract_id
+PCAP 50 equipos trabajo en movilidad Anexo I acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	2023/20
+PPT Suministro 50 portatiles Anexo II acuerdo MP.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Técnico	2023/20
+04 PCAP 35 2023 FIRMADO.pdf	https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&cmpntname=	Pliego Administrativo	CON 35/2023 SE AB
+*/
+
+
+CREATE TABLE entidades (
+	nif VARCHAR NOT NULL, 
+	name VARCHAR, 
+	website_uri VARCHAR, 
+	type_code VARCHAR, 
+	activity_code VARCHAR, 
+	party_subentity_code VARCHAR, 
+	party_postal_zone VARCHAR, 
+	party_address_line VARCHAR, 
+	telephone VARCHAR, 
+	telefax VARCHAR, 
+	email VARCHAR, 
+	dir3 VARCHAR, 
+	id_plataforma VARCHAR, 
+	CONSTRAINT entidades_pkey PRIMARY KEY (nif), 
+	CONSTRAINT entidades_party_subentity_code_fkey FOREIGN KEY(party_subentity_code) REFERENCES regiones (country_subentity_code)
+)
+
+/*
+3 rows from entidades table:
+nif	name	website_uri	type_code	activity_code	party_subentity_code	party_postal_zone	party_address_line	telephone	telefax	email	dir3	id_plataforma
+S4133001J	Parlamento de Andalucía	http://www.parlamentodeandalucia.es	2	1	ES618	41009	c/ San Juan de Ribera s/n	954592100	954592248	contratacion@parlamentodeandalucia.es	I00000175	20015840002647
+P2801300A	Junta de Gobierno del Ayuntamiento de Aranjuez	None	3	1	ES3	28300	Plaza de la Constitución s/n	918090360	918925714	notificaciones.contratacion@aranjuez.es	L01280133	11021420145902
+Q2802152E	ADIF Alta Velocidad - Consejo de Administración	http://www.adifaltavelocidad.es	6	1	ES514	28020	Sor �ngela de la Cruz, 3	917674390	None	comprascontratacion@adif.es	EA0008223	40515810090801
+*/
+
+
+CREATE TABLE expedientes (
+	contract_folder_id VARCHAR NOT NULL, 
+	entry_id VARCHAR, 
+	link VARCHAR, 
+	summary VARCHAR, 
+	title VARCHAR, 
+	updated VARCHAR, 
+	contract_folder_status VARCHAR, 
+	procurement_project_type_code VARCHAR, 
+	procurement_project_subtype_name VARCHAR, 
+	budget_currency VARCHAR, 
+	estimated_overall_contract_amount NUMERIC(12, 2), 
+	total_amount NUMERIC(12, 2), 
+	tax_exclusive_amount NUMERIC(12, 2), 
+	party_nif VARCHAR, 
+	CONSTRAINT expedientes_pkey PRIMARY KEY (contract_folder_id), 
+	CONSTRAINT expedientes_party_nif_fkey FOREIGN KEY(party_nif) REFERENCES entidades (nif)
+)
+
+/*
+3 rows from expedientes table:
+contract_folder_id	entry_id	link	summary	title	updated	contract_folder_status	procurement_project_type_code	procurement_project_subtype_name	budget_currency	estimated_overall_contract_amount	total_amount	tax_exclusive_amount	party_nif
+2023/20	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13983936	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=Ag4n4m84LtCqb7rCcv76B	Id licitación: 2023/20; Órgano de Contratación: Parlamento de Andalucía; Importe: 99750 EUR; Estado:	Suministro de equipamiento para el trabajo de trabajo en movilidad del Parlamento de Andalucía.	2024-01-31T12:59:50.514+01:00	En evaluación	Suministros	Adquisición	EUR	119700.00	120697.50	99750.00	S4133001J
+CON 35/2023 SE AB	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13689210	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=5890HdUK6hTCfVQHDepjG	Id licitación: CON 35/2023 SE AB; Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Aran	Contrato del servicio de mantenimiento de los sistemas de bombeo de aguas fecales y pluviales existe	2024-01-31T12:59:45.080+01:00	En evaluación	Servicios	Servicios de mantenimiento y reparación	EUR	234166.54	184787.94	152717.31	P2801300A
+3.23/20830.0084	https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/13027573	https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&idEvl=niS3E86NfhYadbH3CysQu	Id licitación: 3.23/20830.0084; Órgano de Contratación: ADIF Alta Velocidad - Consejo de Administrac	Ejecución de las obras del proyecto de construcción de las actuaciones derivadas del estudio sobre e	2024-01-31T12:59:41.600+01:00	Adjudicado	Obras	None	EUR	5260595.01	6365319.96	5260595.01	Q2802152E
+*/
+
+
+CREATE TABLE paises (
+	country_code VARCHAR NOT NULL, 
+	country_name VARCHAR, 
+	CONSTRAINT paises_pkey PRIMARY KEY (country_code)
+)
+
+/*
+3 rows from paises table:
+country_code	country_name
+1A	Kosovo
+AT	Austria
+BE	Bélgica
+*/
+
+
+CREATE TABLE regiones (
+	country_subentity_code VARCHAR NOT NULL, 
+	country_subentity_name VARCHAR, 
+	country_code VARCHAR, 
+	CONSTRAINT regiones_pkey PRIMARY KEY (country_subentity_code), 
+	CONSTRAINT regiones_country_code_fkey FOREIGN KEY(country_code) REFERENCES paises (country_code)
+)
+
+/*
+3 rows from regiones table:
+country_subentity_code	country_subentity_name	country_code
+AT	Österreich	AT
+AT1	Ost�sterreich	AT
+AT11	Burgenland	AT
+*/
+ Pregunta: Muestra los expedientes de Suministros en Centro (ES) con cuantía mayor a 315000€. Comienza la query siempre por SELECT * y termínala siempre por ; Respuesta: SELECT * FROM contracfolder.contratos WHERE procurementprojectsubtype.name = 'Suministros' AND procurementprojecttype.code = '2' AND contracfolder.contractfolderstatus = 'En evaluación' AND contracfolder.taxexclusivetotalamount > 315000 AND contracfolder.placelanguagetype = 'es' AND contracfolder.contracfoldercurrencycode = 'EUR' AND contracfolder.contratfolderid LIKE '%.%' AND contracfolder.contratfolderid NOT LIKE '%_Q%' AND contracfolder.contratfolderid NOT LIKE '%_200%' AND contracfolder.contratfolderid NOT LIKE '%.8%' AND contracfolder.contratfolderid NOT LIKE '__%3%' AND contracfolder.placelanguagetype != 'es' AND contracfolder.placelanguagetype != 'E' AND contracfolder.placelanguagetype != 'en' AND contracfolder.placelanguagetype !="
+241,Muestra los expedientes Anuncio Previo de Soria con cuantía menor a 566000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Soria' AND expedientes.contract_folder_status = 'Anuncio Previo' AND expedientes.total_amount < 566000;,expedientes,"{'estado': 'Anuncio Previo', 'region': 'Soria', 'cuantia': 566000}",region_estado_cuantia_inferior,SELECT * FROM contracciondelestado.contratacionesn4  WHERE summary LIKE '%3.23/20830.0084%' AND total_amount < 566000 AND contract_folder_status = 'En evaluación' AND procurement_project_type_code = 'Suministros' AND procurement_project_subtype_name = 'Mantenimiento y reparación de las bomas de aguas' AND budget_currency = 'EUR' AND family_sindicator_name = 'Suministros del planteo de la planta de aguas' AND plant_materials_name = 'Aguas fecales y pluviales' AND building_materials_name = 'Otros materiales' AND seach_against_area_country_name = 'Bélgica'  ;
+242,Muestra los expedientes Adjudicado de Girona con cuantía mayor a 194000€.,SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Girona' AND expedientes.contract_folder_status = 'Adjudicado' AND expedientes.total_amount > 194000;,expedientes,"{'estado': 'Adjudicado', 'region': 'Girona', 'cuantia': 194000}",region_estado_cuantia_superior,SELECT * FROM contracfolder.contratos WHERE budget_currency = 'EUR' AND estimated_overall_contract_amount > 194000;
+243,"Muestra los expedientes de Concesión de Servicios en Castilla-La Mancha, con estado Resuelto, y cuantía menor a 708000€.",SELECT * FROM expedientes JOIN entidades ON expedientes.party_nif = entidades.nif JOIN regiones ON entidades.party_subentity_code = regiones.country_subentity_code WHERE regiones.country_subentity_name = 'Castilla-La Mancha' AND expedientes.procurement_project_type_code = 'Concesión de Servicios' AND expedientes.contract_folder_status = 'Resuelto' AND expedientes.total_amount < 708000;,expedientes,"{'tipo': 'Concesión de Servicios', 'region': 'Castilla-La Mancha', 'estado': 'Resuelto', 'cuantia': 708000}",region_tipo_estado_cuantia_inferior,SELECT * FROM contracciondelestado.es.expedientes e JOIN contracciondelestado.es.entidades e2 ON e.party_nif = e2.nif WHERE e.contract_folder_status = 'Resuelto' AND e.tax_exclusive_amount < 708000;
+244,Muestra los expedientes Adjudicado cuyo importe sea mayor a 818000€.,SELECT * FROM expedientes WHERE contract_folder_status = 'Adjudicado' AND total_amount > 818000;,expedientes,"{'estado': 'Adjudicado', 'cuantia': 818000}",estado_cuantia_superior,SELECT * FROM expedientes WHERE total_amount > 818000;
